@@ -9,7 +9,7 @@ author: Dylan Decrulle
 
 # Création d'un Microfrontend avec Module Federation
 
-![h:400](./img/microfrontend.png)
+![h:400](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/microfrontend.png)
 
 ---
 
@@ -21,17 +21,17 @@ Définition :
 
 > An architectural style where independently deliverable frontend applications are composed into a greater whole.
 
-<cite>Martin Fowler</cite>
+_Martin Fowler_
 
 ---
 
-![bg 100%](./img/MF.gif)
+![bg 100%](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/MF.gif)
 
 ---
 
 <!-- _class: lead gaia -->
 
-![bg h:100%](./img/routes.jpg)
+![bg h:100%](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/routes.jpg)
 
 ---
 
@@ -49,7 +49,7 @@ Définition :
 
 # Webpack
 
-![100%](./img/webpack.gif)
+![100%](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack.gif)
 
 ---
 
