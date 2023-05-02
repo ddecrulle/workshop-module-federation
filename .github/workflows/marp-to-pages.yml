@@ -3,6 +3,12 @@ concurrency: marp-to-pages
 on:
   push:
     branches: [slides]
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,13 +37,6 @@ jobs:
         uses: docker://marpteam/marp-cli:v1.7.0
         with:
           args: README.md -o build/README.pptx
-        env:
-          MARP_USER: root:root
-
-      - name: Marp Build (docs folder)
-        uses: docker://marpteam/marp-cli:v1.7.0
-        with:
-          args: -I docs/ -o build/docs/
         env:
           MARP_USER: root:root
 

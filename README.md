@@ -9,7 +9,7 @@ author: Dylan Decrulle
 
 # Création d'un Microfrontend avec Module Federation
 
-![h:400](./imgimg/microfrontend.png)
+![h:400](./img/microfrontend.png)
 
 ---
 
