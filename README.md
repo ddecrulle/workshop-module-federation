@@ -3,7 +3,6 @@ marp: true
 theme: gaia
 paginate: true
 author: Dylan Decrulle
-
 ---
 
 <!--
@@ -107,9 +106,9 @@ La documentation officielle fournie des [exemples](https://github.com/module-fed
 
 Outil front-end JS pour améliorer la rapidité de développement avec une compilation optimisée pour la production.
 
-|                                                            Webpack                                                            |                                                            Vite                                                            |
-| :---------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: |
-| <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack-bundle.png' /> | <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/vite-bundle.png' /> |
+|                                                      Webpack                                                       |                                                      Vite                                                       |
+| :----------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
+| ![width:500](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack-bundle.png) | ![width:500](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/vite-bundle.png) |
 
 <!--
 
