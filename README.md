@@ -29,9 +29,9 @@ Définition :
 <!--
 2011 Arrivée de l'architecture Microservices
 
-Grand succès, sauf que cette architecture traite principalement d'aspect backend.
+Grand succès, sauf que cette architecture traite principalement d'aspect back-end.
 
-2016 Première apparition du mot Microfrontends
+2016 Première apparition du mot Microfrontend
 
 Définition
 -->
@@ -52,7 +52,7 @@ Avec le microfrontend il est possible d'avoir un écran découpé en plusieurs a
 
 <!--
 
-On peut aussi imaginer un microfrontend ou c'est pas "l'ecran" qui est découpé mais les différentes routes.
+On peut aussi imaginer un microfrontend ou c'est pas "l’écran" qui est découpé mais les différentes routes.
 
 Web4g ?
 -->
@@ -96,7 +96,7 @@ Web4g ?
 - Vite
 - Next
 
-La documentation officielle fournis des [exemples](https://github.com/module-federation/module-federation-examples)
+La documentation officielle fournie des [exemples](https://github.com/module-federation/module-federation-examples)
 
 ---
 
@@ -122,7 +122,7 @@ Pour le build en production, Vite utilise rollup (un module bundler comme webpac
 
 # On commence ?
 
-Toutes les ressources sont disponible sur le dépot github [ddecrulle/workshop-module-federation](https://github.com/ddecrulle/workshop-module-federation).
+Toutes les ressources sont disponibles sur le dépôt github [ddecrulle/workshop-module-federation](https://github.com/ddecrulle/workshop-module-federation).
 
 ```
 git clone git@github.com:ddecrulle/workshop-module-federation.git
