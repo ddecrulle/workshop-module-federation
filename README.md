@@ -3,6 +3,7 @@ marp: true
 theme: gaia
 paginate: true
 author: Dylan Decrulle
+
 ---
 
 <!--
@@ -108,7 +109,7 @@ Outil front-end JS pour améliorer la rapidité de développement avec une compi
 
 |                                                            Webpack                                                            |                                                            Vite                                                            |
 | :---------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: |
-| <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack-bundle.png'> | <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/vite-bundle.png'> |
+| <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack-bundle.png' /> | <img width='100%' src='https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/vite-bundle.png' /> |
 
 <!--
 
