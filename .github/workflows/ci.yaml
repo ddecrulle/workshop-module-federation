@@ -47,13 +47,13 @@ jobs:
         id: check
         uses: EndBug/version-check@v2
 
-      - name: Check if drama queen version has been updated
+      - name: Check if host version has been updated
         id: check-host
         uses: EndBug/version-check@v2
         with:
           file-name: host/package.json
 
-      - name: Check if queen version has been updated
+      - name: Check if remote version has been updated
         id: check-remote
         uses: EndBug/version-check@v2
         with:
