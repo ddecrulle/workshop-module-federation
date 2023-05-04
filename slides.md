@@ -81,7 +81,7 @@ Web4g ?
 
 - Plugin Webpack (Webpack 5)
 - Chargement asynchrone de modules distants (pas dans le code de l'application).
-  - Le code est chargé dynamiquement à l'exécution, avec les **dépendances** si nécessaires.
+  - Le code est chargé dynamiquement à l'exécution, avec les **dépendances** si nécessaire.
 - Plus large que le Microfrontend, peut aussi être utilisé côté backend
 
 ---
@@ -242,11 +242,18 @@ Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-fed
 
 Le plugin Vite : [@originjs/vite-plugin-federation](https://github.com/originjs/vite-plugin-federation)
 
+On ajoute la dépendance dans le projet racine car elle est commune à toutes les apps.
 ```bash
 yarn add -D @originjs/vite-plugin-federation -W
 ```
 
 ---
+# Pour le remote
+
+Il s'agit d'exposer le button qui sera consommé par le host. Cela se passe dans le fichier `vite.config.ts`
+
+
+
 
 ---
 
