@@ -1,0 +1,24 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "host",
+    "remote"
+  ],
+  "devDependencies": {
+    "lerna": "^6.5.1",
+    "kill-port": "^2.0.1"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "build:host": "lerna run build --scope 'host'",
+    "build:remote": "lerna run build --scope 'remote'",
+    "serve": "lerna run --parallel preview",
+    "serve:host": "lerna run preview --scope 'host' ",
+    "serve:remote": "lerna run preview --scope 'remote'",
+    "dev": "lerna run --parallel dev",
+    "dev:host": "lerna run dev --scope 'host'",
+    "dev:remote": "lerna run dev --scope 'remote'",
+    "stop": "kill-port --port 5000,5001,5002"
+  }
+}
