@@ -243,23 +243,135 @@ Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-fed
 Le plugin Vite : [@originjs/vite-plugin-federation](https://github.com/originjs/vite-plugin-federation)
 
 On ajoute la dépendance dans le projet racine car elle est commune à toutes les apps.
+
 ```bash
 yarn add -D @originjs/vite-plugin-federation -W
 ```
 
 ---
+
+# Configuration du build
+
+Dans le vite.config.ts (des deux app)
+
+```ts
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    modulePreload: false,
+    target: "esnext",
+    minify: false,
+    cssCodeSplit: false,
+  },
+});
+```
+
+---
+
+# (Optionnel) TsconfigPath
+
+```bash
+yarn add -D vite-tsconfig-paths -W
+```
+
+```ts
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    ...,
+    tsconfigPaths()
+    ],
+});
+
+```
+
+---
+
 # Pour le remote
 
-Il s'agit d'exposer le button qui sera consommé par le host. Cela se passe dans le fichier `vite.config.ts`
+Cela se passe dans le fichier `vite.config.ts`
 
+```ts
+import federation from "@originjs/vite-plugin-federation";
+export default defineConfig({
+  plugins: [
+    react(),
+    federation({
+      name: "remote",
+      filename: "remoteEntry.js",
+      exposes: { "./Button": "./src/components/Button.tsx" },
+      shared: ["react", "react-dom"],
+    }),
+  ],
+});
+```
 
+---
 
+# Pour l'Host
+
+```ts
+import federation from "@originjs/vite-plugin-federation";
+export default defineConfig({
+  plugins: [
+    react(),
+    federation({
+      name: "host",
+      remotes: {
+        remoteApp: "http://localhost:5001/assets/remoteEntry.js",
+      },
+      shared: ["react", "react-dom"],
+    }),
+  ],
+});
+```
+
+---
+
+Import du bouton dans l'host
+
+```ts
+// Static import
+import Button from "remoteApp/Button";
+// Lazy import
+const App = React.lazy(() => import("remoteApp/Button"));
+```
+
+Déclaration du type (pas optimal...)
+fichier `custom.d.ts`
+
+```ts
+declare module "remoteApp/*";
+```
+
+```tsx
+// Dans l'App.tsx
+<Button />
+```
+
+---
+
+# Lancement en local
+
+```
+yarn build
+yarn serve
+```
+
+L'application host devrait inclure le bouton du remote ! 
+
+http://localhost:5000
+
+Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-federation/tree/step2).
 
 ---
 
 # Ressources
 
 - [Micro Frontends](https://martinfowler.com/articles/micro-frontends.html) par Martin Fowler
+- Le site [Micro Frontends](https://micro-frontends.org/), tiré du livre [Micro Frontends in Action](https://www.manning.com/books/micro-frontends-in-action?a_aid=mfia&a_bid=5f09fdeb)
 - [Webpack 5 Module Federation : A game-changer in JavaScript architecture](https://medium.com/swlh/webpack-5-module-federation-a-game-changer-to-javascript-architecture-bcdd30e02669) par Zack Jackson (le créateur de Module Federation)
 - [The History of Microfrontends](https://levelup.gitconnected.com/the-history-of-microfrontends-a8e9e5e9a1d4)
 - [Module Federation](https://webpack.js.org/concepts/module-federation/)
