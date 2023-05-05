@@ -7,8 +7,10 @@
     "remote"
   ],
   "devDependencies": {
+    "@originjs/vite-plugin-federation": "^1.2.2",
+    "kill-port": "^2.0.1",
     "lerna": "^6.5.1",
-    "kill-port": "^2.0.1"
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "scripts": {
     "build": "lerna run build",
