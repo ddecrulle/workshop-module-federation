@@ -360,11 +360,163 @@ yarn build
 yarn serve
 ```
 
-L'application host devrait inclure le bouton du remote ! 
+L'application host devrait inclure le bouton du remote !
 
 http://localhost:5000
 
+Le remote doit **absolument** utiliser le build lancé via `vite preview`. L'host peut être en mode développement `vite dev`
+
 Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-federation/tree/step2).
+
+---
+
+# Des améliorations
+
+Variabiliser le passage de l'url du remote.
+
+Créer un fichier .env
+
+```
+VITE_REMOTE_URL=http://localhost:5001
+```
+
+[Documentation officielle](https://vitejs.dev/guide/env-and-mode.html)
+
+---
+
+Dans le vite.config.ts
+
+```ts
+federation({
+  name: "app",
+  remotes: {
+    remoteApp: {
+      external: `Promise.resolve(import.meta.env["VITE_REMOTE_URL"] + "/assets/remoteEntry.js")`,
+      externalType: "promise",
+    },
+  },
+  shared: ["react", "react-dom"],
+});
+```
+
+Ajouter `"baseUrl": "./src"` pour avoir des imports absolus (nécessite **tsConfigPath**).
+
+---
+
+# IntelliSense pour TypeScript
+
+Pour activer l'IntelliSense sur les variables d'environnements, dans le fichier `vite-env.d.ts` ajouter :
+
+```ts
+interface ImportMetaEnv {
+  readonly VITE_REMOTE_URL: string;
+  // more env variables...
+}
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+```
+
+Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-federation/tree/step3).
+
+---
+
+# C'est cool mais partager un bouton ...
+
+Autant faire une librairie (ou un système de design) !
+
+Et si on ajoutait l'application remote sur la route `/remote` ?
+
+---
+
+# Créer le router dans l'host
+
+```bash
+lerna add react-router-dom --scope=host
+```
+
+```tsx
+import { createBrowserRouter } from "react-router-dom";
+import App from "App";
+import RemoteApp from "remoteApp/RemoteApp";
+export const router = createBrowserRouter([
+  { path: "/remote", element: <RemoteApp /> },
+  { path: "/", element: <App /> },
+]);
+```
+
+---
+
+# Utiliser le rooter
+
+Dans main.tsx
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "./index.css";
+import { router } from "routes/root";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
+---
+
+# Exposer l'app du remote
+
+Dans vite.config.ts
+
+```ts
+exposes:
+  {
+    "./Button": "./src/components/Button.tsx",
+    "./App": "./src/App.tsx",
+  }
+```
+
+---
+
+# On test
+
+Comme tout à l'heure
+
+```bash
+yarn build
+yarn serve
+```
+
+https://localhost:5000
+
+Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-federation/tree/step4).
+
+---
+
+![bg](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/remoteInHost.png)
+
+---
+
+# Quelques points de vigilances
+
+- L'host importe dynamiquement les modules du remote. Il n'y a pas de contrôle sur ce qui est importé au build time. Par conséquent on peut découvrir des **erreurs au runtime** !
+  - Bien définir des contrats d'interface !
+- L'architecture monorepo est, je pense, à conseiller dans le cas d'un microfrontend. Il faut cependant un gitflow solide.
+
+---
+
+# Pour aller plus loin
+
+- Nested Routes
+  -  🔎 L'host et le remote ont un router
+- Partager des états entre applications
+- PWA 
+  - Offline
+- Paramétrage du serveur applicatif pour gérer les CORS
+- Déploiement
 
 ---
 
