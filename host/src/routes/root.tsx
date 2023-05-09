@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "App";
-import RemoteApp from "remoteApp/RemoteApp"
+import RemoteContainer from "RemoteContainer";
 
 export const router = createBrowserRouter([{
-  path: "/remote",
-  element: <RemoteApp />
+  path: "/remote/*",
+  element: <RemoteContainer />
 },
 {
   path: "/",
