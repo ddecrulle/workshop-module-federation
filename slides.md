@@ -169,9 +169,11 @@ Fixons les ports de lancement, host : 5000, remote 5001.
 
 ---
 
-# Modification du Remote
+# Modifications
 
-Je vous propose de customiser le bouton du remote.
+Pour commencer et éviter de mélanger host et remote, modifions le titre en ajoutant **Host** ou **Remote** dans `App.tsx`.
+
+Je vous propose ensuite de customiser le bouton du **remote**.
 
 Pour ce faire créons un composant Button dans `components/Button.tsx` et importons le dans notre `App.tsx`.
 
@@ -242,7 +244,7 @@ Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-fed
 
 Le plugin Vite : [@originjs/vite-plugin-federation](https://github.com/originjs/vite-plugin-federation)
 
-On ajoute la dépendance dans le projet racine car elle est commune à toutes les apps.
+On ajoute la dépendance dans le projet racine car elle est commune à toutes les apps et que c'est une devDependencies.
 
 ```bash
 yarn add -D @originjs/vite-plugin-federation -W
@@ -353,6 +355,8 @@ declare module "remoteApp/*";
 
 ---
 
+<!-- _class: invert  -->
+
 # Lancement en local
 
 ```
@@ -421,9 +425,11 @@ Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-fed
 
 ---
 
+<!-- _class: lead gaia  -->
+
 # C'est cool mais partager un bouton ...
 
-Autant faire une librairie (ou un système de design) !
+Autant faire une librairie (ou un système de design ) !
 
 Et si on ajoutait l'application remote sur la route `/remote` ?
 
@@ -432,8 +438,10 @@ Et si on ajoutait l'application remote sur la route `/remote` ?
 # Créer le router dans l'host
 
 ```bash
-lerna add react-router-dom --scope=host
+npx lerna add react-router-dom --scope=host
 ```
+
+routes/root.tsx
 
 ```tsx
 import { createBrowserRouter } from "react-router-dom";
@@ -481,6 +489,8 @@ exposes:
 
 ---
 
+<!-- _class: invert -->
+
 # On test
 
 Comme tout à l'heure
@@ -508,12 +518,70 @@ Le code jusqu'à [cette étape](https://github.com/ddecrulle/workshop-module-fed
 
 ---
 
+<!-- _class: lead gaia --->
+
+# Et si le remote a lui aussi un router ?
+
+Essayons de voir ce qu'il se passe !
+
+---
+
+# Création du router dans le remote
+
+```bash
+npx lerna add react-router-dom --scope=remote
+```
+
+routes/root.tsx
+
+```tsx
+import { createBrowserRouter } from "react-router-dom";
+import App from "App";
+export const router = createBrowserRouter([
+  { path: "/remote-routes", element: <div>Test router in remote </div> },
+  { path: "/", element: <App /> },
+]);
+```
+
+---
+
+# Utiliser le rooter
+
+Dans main.tsx
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "./index.css";
+import { router } from "routes/root";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
+---
+
+# On test ? 
+
+Quelqu'un a une idée du comportement ? 
+
+```bash
+yarn build
+yarn serve
+```
+
+---
+![]()
+---
+
 # Pour aller plus loin
 
-- Nested Routes
-  -  🔎 L'host et le remote ont un router
 - Partager des états entre applications
-- PWA 
+- PWA
   - Offline
 - Paramétrage du serveur applicatif pour gérer les CORS
 - Déploiement
