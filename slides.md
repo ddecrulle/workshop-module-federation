@@ -96,7 +96,7 @@ Web4g ?
 - Vite
 - Next
 
-La documentation officielle fournie des [exemples](https://github.com/module-federation/module-federation-examples)
+La documentation officielle fournit des [exemples](https://github.com/module-federation/module-federation-examples)
 
 ---
 
@@ -364,7 +364,7 @@ yarn build
 yarn serve
 ```
 
-L'application host devrait inclure le bouton du remote !
+L'application host devrait embarquer le bouton du remote !
 
 http://localhost:5000
 
@@ -491,7 +491,7 @@ exposes:
 
 <!-- _class: invert -->
 
-# On test
+# On teste
 
 Comme tout à l'heure
 
@@ -565,9 +565,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
 ---
 
-# On test ? 
+# On teste ?
 
-Quelqu'un a une idée du comportement ? 
+Quelqu'un a une idée du comportement ?
 
 ```bash
 yarn build
@@ -575,7 +575,140 @@ yarn serve
 ```
 
 ---
-![]()
+
+![bg](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/remote-route-test.png)
+
+---
+
+<!--
+Créer un fichier **bootstrap.tsx**
+
+```tsx
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { createRouter } from "./routing/router-factory";
+import type { RoutingStrategy } from "./routing/types";
+
+const mount = ({
+  mountPoint,
+  initialPathname,
+  routingStrategy,
+}: {
+  mountPoint: HTMLElement;
+  initialPathname?: string;
+  routingStrategy?: RoutingStrategy;
+}) => {
+  const router = createRouter({ strategy: routingStrategy, initialPathname });
+  const root = createRoot(mountPoint);
+  root.render(<RouterProvider router={router} />);
+
+  return () => queueMicrotask(() => root.unmount());
+};
+export { mount };
+```
+
+---
+
+**routing/router-factory.ts**
+
+```ts
+import { createBrowserRouter, createMemoryRouter } from "react-router-dom";
+import { routes } from "./routes";
+import type { RoutingStrategy } from "./types";
+
+interface CreateRouterProps {
+  strategy?: RoutingStrategy;
+  initialPathname?: string;
+}
+
+export function createRouter({ strategy, initialPathname }: CreateRouterProps) {
+  if (strategy === "browser") {
+    return createBrowserRouter(routes);
+  }
+
+  const initialEntries = [initialPathname || "/"];
+  return createMemoryRouter(routes, { initialEntries: initialEntries });
+}
+```
+
+---
+
+**routing/routes.tsx**
+
+Le fichier root.tsx sans le browserRouter et renommage _*router*_ en routes.
+
+```tsx
+import App from "App";
+export const routes = [
+  { path: "/remote-routes", element: <div>Test router in remote </div> },
+  { path: "/", element: <App /> },
+];
+```
+
+---
+
+Dans le **main.tsx**
+
+```tsx
+import "./index.css";
+import("./bootstrap").then(({ mount }) => {
+  const localRoot = document.getElementById("root") as HTMLElement;
+
+  mount({
+    mountPoint: localRoot!,
+    routingStrategy: "browser",
+  });
+});
+
+export {};
+```
+
+---
+
+# On test que le remote n'est pas cassé
+
+```bash
+yarn dev:remote
+yarn build:remote
+yarn serve:remote
+```
+
+http://localhost:5001/remote-routes
+
+Tout à l'air ok !
+
+---
+
+# On modifie l'export
+
+```ts
+  "./remoteApp": "./src/bootstrap.tsx"
+```
+
+---
+-->
+
+# Le Router
+
+On ne peut pas avoir 2 [Browser Router](https://reactrouter.com/en/main/routers/create-browser-router) sur une "même" application.
+
+**Solution**
+
+- Un Browser Router dans l'application host
+- Un [Memory Router](https://reactrouter.com/en/main/routers/create-memory-router) dans l'application remote (uniquement en microFrontend)
+
+---
+
+<!-- _class: lead gaia --->
+
+## Un exemple, utilisant webpack, est disponible [ici](https://github.com/module-federation/module-federation-examples/tree/master/react-nested-routers).
+
+**On essaie de faire pareil dans notre contexte ?**
+
+---
+
+![bg](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/error-nested-hook.png)
+
 ---
 
 # Pour aller plus loin
@@ -587,6 +720,8 @@ yarn serve
 - Déploiement
 
 ---
+
+<!-- _class: invert --->
 
 # Ressources
 
