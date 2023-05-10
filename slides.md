@@ -106,7 +106,7 @@ La documentation officielle fournit des [exemples](https://github.com/module-fed
 
 Outil front-end JS pour améliorer la rapidité de développement avec une compilation optimisée pour la production.
 
-|                                                      Webpack                                                       |                                                      Vite                                                       |
+|                                                      Vite                                                       |                                                      Webpack                                                       |
 | :----------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
 | ![width:500](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/webpack-bundle.png) | ![width:500](https://raw.githubusercontent.com/ddecrulle/workshop-module-federation/slides/img/vite-bundle.png) |
 
@@ -151,7 +151,7 @@ yarn create vite
 # Lancement des applications
 
 ```bash
-npx lerna boostrap #Télécharge les dépendances
+npx lerna bootstrap #Télécharge les dépendances
 yarn dev #Lance les 2 applications
 yarn build #Build les 2 applications
 ```
