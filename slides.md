@@ -545,7 +545,7 @@ export const router = createBrowserRouter([
 
 ---
 
-# Utiliser le rooter
+# Utiliser le router
 
 Dans main.tsx
 
