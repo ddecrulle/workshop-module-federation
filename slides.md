@@ -455,7 +455,7 @@ export const router = createBrowserRouter([
 
 ---
 
-# Utiliser le rooter
+# Utiliser le router
 
 Dans main.tsx
 
@@ -483,7 +483,7 @@ Dans vite.config.ts
 exposes:
   {
     "./Button": "./src/components/Button.tsx",
-    "./App": "./src/App.tsx",
+    "./RemoteApp": "./src/App.tsx",
   }
 ```
 
